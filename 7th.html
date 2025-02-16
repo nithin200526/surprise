@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Animation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            font-size: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
+            animation: moveStars 50s linear infinite;
+        }
+        
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: -10000px 5000px; }
+        }
+
+        .text-line {
+            opacity: 1;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div id="text-container"></div>
+
+    <script>
+        const lines = [
+            "You are the cake Vyshu",
+            "Can I eat you?",
+            ".",
+            ".",
+            ".",
+            "Sorry",
+            "Sorry",
+            "Just Kidding Honey",
+            "Just a second SweetHeart"
+        ];
+
+        function typeText(index, text, container) {
+            return new Promise(resolve => {
+                let span = document.createElement("div");
+                span.classList.add("text-line");
+                container.appendChild(span);
+                let i = 0;
+                function type() {
+                    if (i < text.length) {
+                        let letterSpan = document.createElement("span");
+                        letterSpan.textContent = text.charAt(i);
+                        span.appendChild(letterSpan);
+                        i++;
+                        setTimeout(type, 100);
+                    } else {
+                        resolve();
+                    }
+                }
+                type();
+            });
+        }
+
+        async function startAnimation() {
+            const container = document.getElementById("text-container");
+            for (let i = 0; i < lines.length; i++) {
+                await typeText(i, lines[i], container);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            setTimeout(() => {
+                window.location.href = "https://birthday.mewtru.com/cswMK8Gu";
+            }, 2000);
+        }
+
+        startAnimation();
+    </script>
+</body>
+</html>
